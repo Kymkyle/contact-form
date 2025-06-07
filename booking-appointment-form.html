@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Appointment Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: url('IMAGES/contactus1.webp') no-repeat center center/cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      perspective: 1000px;
+    }
+
+    .booking-container {
+      background: transparent;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 10px 50px;
+      border-radius: 16px;
+      box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.2),
+        inset 0 0 10px rgba(255, 255, 255, 0.2);
+      transform: rotateX(1deg) rotateY(-1deg);
+      transition: all 0.3s ease;
+      max-width: 600px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .booking-container:hover {
+      transform: rotateX(0deg) rotateY(0deg) scale(1.02);
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        inset 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+
+    h2 {
+      text-align: center;
+      color: rgb(6, 6, 148);
+      font-size: 36px;
+      margin-bottom: 5px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 700;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      background-color: rgb(6, 6, 148);
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: rgb(38, 38, 236);
+      color: black;
+    }
+    /* This will apply a faded look only to the content under the popup */
+    .booking-container .content.faded {
+      opacity: 0.1;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    /* Popup Message */
+    .popup {
+      font-size: 30px;
+      width: 500px;
+      display: none;
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform: translate(-50%);
+      background-color: white;
+      color: rgb(6, 6, 148);
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+      font-weight: 600;
+      z-index: 10;
+      animation: fadeInUp 0.6s ease;
+      text-align: justify;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="booking-container">
+    <div class="content">
+      <h2>Book an Appointment</h2>
+      <form id="bookingForm">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" required />
+
+        <label for="date">Preferred Date</label>
+        <input type="date" id="date" name="date" required />
+
+        <label for="time">Preferred Time</label>
+        <input type="time" id="time" name="time" required />
+
+        <label for="service">Select Service</label>
+        <select id="service" name="service" required>
+          <option value="">-- Please choose an option --</option>
+          <option value="consultation">Consultation</option>
+          <option value="treatment">Treatment Session</option>
+          <option value="follow-up">Follow-Up</option>
+        </select>
+
+        <label for="message">Additional Notes</label>
+        <textarea id="message" name="message" placeholder="Any special requests or details?"></textarea>
+
+        <button type="submit">Book Now</button>
+      </form>
+    </div>  
+    <div class="popup" id="popupMessage">
+      ✅ Thank you! Your appointment has been booked. 
+    </div>  
+  </div>
+  <script>
+    const form = document.getElementById("bookingForm");
+    const popup = document.getElementById("popupMessage");
+    const content = document.querySelector(".booking-container .content");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      popup.style.display = "block";
+      content.classList.add("faded");
+      form.reset();
+
+      setTimeout(() => {
+        popup.style.display = "none";
+        content.classList.remove("faded");
+      }, 10000);
+    });
+  </script>
+
+
+</body>
+</html>
